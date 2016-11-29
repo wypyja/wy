@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="default" extends="struts-default">
+		<interceptors>
+			<interceptor name="authority" class="cn.edu.cdu.ftsoft.interceptor.LoginInterceptor">
+			</interceptor>
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="authority"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		
+		<global-results>
+			<result name="login">/index.jsp</result>
+		</global-results>
+		
+
+		
+		<action name="loginl" class="cn.edu.cdu.ftsoft.action.Login">
+			<result name="success" type="dispatcher">/welcome.jsp</result>
+			<result name="error">/error.jsp</result>
+			<result name="input">/index.jsp</result>
+		</action>
+		
+		
+		
+		<action name="show" class="cn.edu.cdu.ftsoft.action.Show">
+			<result name="success">/WEB-INF/show.jsp</result>
+			<!-- 次处将要登录才能访问的页面放入到web-inf下，保证其安全性。 -->
+			<interceptor-ref name="mydefault"/>
+		</action>
+		
+		
+		
+	</package>
+</struts>    
